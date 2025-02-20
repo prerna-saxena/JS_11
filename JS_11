@@ -1,0 +1,169 @@
+setTimeout
+
+The syntax:
+let timerId = setTimeout(func|code, [delay], [arg1], [arg2], ...)
+
+func|code
+Function or a string of code to execute. Usually, that’s a function. For historical reasons, a string of code can be passed, but that’s not recommended.
+
+delay
+The delay before run, in milliseconds (1000 ms = 1 second), by default 0.
+
+arg1, arg2…
+Arguments for the function
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+example :-
+function sayhi(){
+    alert("HELO PRERNA");
+}
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+With arguments:
+
+function sayHi(phrase, who) {
+  alert( phrase + ', ' + who );
+}
+
+setTimeout(sayHi, 1000, "Hello", "John"); // Hello, John
+
+setTimeout(sayhi, 1000);
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+If the first argument is a string, then JavaScript creates a function from it.
+
+setTimeout (() => alert("PRERNA"), 1000);
+
+
+===========================================
+++++++++++++++++++++++++++++++++++++
+Canceling with clearTimeout
+++++++++++++++++++++++++++++++++++++
+==============================================
+A call to setTimeout returns a “timer identifier” timerId that we can use to cancel the execution.
+
+The syntax to cancel:
+
+let timerId = setTimeout(...);
+clearTimeout(timerId);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+setInterval
+
+The setInterval method has the same syntax as setTimeout:
+SYNTAX:-             let timerId = setInterval(func|code, [delay], [arg1], [arg2], ...)
+
+// repeat with the interval of 2 seconds
+let timerId = setInterval(() => alert('tick'), 2000);
+
+// after 5 seconds stop
+setTimeout(() => { clearInterval(timerId); alert('stop'); }, 5000);
+
+The following example will show the message every 2 seconds. After 5 seconds, the output is stopped:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Nested setTimeout
+There are two ways of running something regularly.
+One is setInterval. The other one is a nested setTimeout
+
+let timerId = setTimeout(function tick() {
+  alert('tick');
+  timerId = setTimeout(tick, 2000); // (*)
+}, 2000);
+
+example:-
+let timerid = setTimeout(function hi(){
+    alert("PRERNA ");
+
+timerid = setTimeout(PRERNA, 2000);
+
+}, 2000);
+
+CPU-hungry
+CPU-hungry program is one that demands a lot of processing power from your computer's Central Processing Unit (CPU). 
+These programs require the CPU to perform many calculations and operations, which can lead to high CPU usage.
+
+Nested setTimeout allows to set the delay between the executions more precisely than setInterval.
+
+if i give default value in setinterval 0 then what does it mean
+If you provide a delay of 0 milliseconds to setInterval, it doesn't mean the function will execute immediately and continuously. 
+Instead, 
+it means the function will be executed as soon as possible, after the current execution of the JavaScript engine has finished.
+
+
+ If setInterval with a delay of 0 caused immediate and continuous execution, 
+
+The nested setTimeout guarantees the fixed delay (here 100ms).
+
+That’s because a new call is planned at the end of the previous one.
+
+Garbage collection and setInterval/setTimeout callback
+When a function is passed in setInterval/setTimeout, an internal reference is created to it and saved in the scheduler. 
+It prevents the function from being garbage collected, even if there are no other references to it.
+
+setTimeout(function() {...}, 100);
+
+==========================
+Zero delay setTimeout
+==========================
+here’s a special use case: setTimeout(func, 0), or just setTimeout(func).
+This schedules the execution of func as soon as possible. 
+But the scheduler will invoke it only after the currently executing script is complete.
+So the function is scheduled to run “right after” the current script.
+For instance, this outputs “Hello”, then immediately “World”:
+
+setTimeout(() => alert("World"));
+alert("Hello");
+
+REASON OF PRINTING HELLO FIRST AND THEN WORLD SECOND 
+======================================================
+The first line “puts the call into calendar after 0ms”.
+But the scheduler will only “check the calendar” after the current script is complete,
+so "Hello" is first, and "World" – after it.
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                                         SUMMARY
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Methods setTimeout(func, delay, ...args) and setInterval(func, delay, ...args) 
+allow us to run the func once/regularly after delay milliseconds.
+
+To cancel the execution, we should call clearTimeout/clearInterval with the value returned by setTimeout/setInterval.
+
+Nested setTimeout calls are a more flexible alternative to setInterval, allowing us to set the time between executions more precisely.
+
+Zero delay scheduling with setTimeout(func, 0) (the same as setTimeout(func)) is used to schedule the call “as soon as possible, but after the current script is complete”.
+
+The browser limits the minimal delay for five or more nested calls of setTimeout or for setInterval (after 5th call) to 4ms. That’s for historical reasons.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
